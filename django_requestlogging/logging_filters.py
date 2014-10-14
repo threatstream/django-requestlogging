@@ -42,6 +42,9 @@ also :class:`~.middleware.LogSetupMiddleware`.
 """
 
 
+import hashlib
+
+
 class RequestFilter(object):
     """
     Filter that adds information about a *request* to the logging record.
@@ -93,6 +96,12 @@ class RequestFilter(object):
         # Cookies
         COOKIES = getattr(request, 'COOKIES', {})
         record.uuid = COOKIES.get('uuid', '-')
+        # Session
+        record.session_id = COOKIES.get('sessionid', '-')
+        if record.session_id != '-':
+            record.session_id_hashed = hashlib.sha1(record.session_id).hexdigest()
+        else:
+            record.session_id_hashed = '-'
         # Headers
         META = getattr(request, 'META', {})
         record.remote_addr = META.get('REMOTE_ADDR', '-')
