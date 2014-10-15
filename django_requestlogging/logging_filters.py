@@ -105,7 +105,7 @@ class RequestFilter(object):
         # Headers
         META = getattr(request, 'META', {})
         record.remote_addr = META.get('REMOTE_ADDR', '-')
-        record.remote_addr_fwdd = META.get('HTTP_X_FORWARDED_FOR', '-')
+        record.remote_xff = META.get('HTTP_X_FORWARDED_FOR', '-')
         record.server_protocol = META.get('SERVER_PROTOCOL', '-')
         record.http_user_agent = META.get('HTTP_USER_AGENT', '-')
         return True
