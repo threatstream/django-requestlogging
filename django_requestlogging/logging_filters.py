@@ -99,7 +99,7 @@ class RequestFilter(object):
         # Session
         record.session_id = COOKIES.get('sessionid', '-')
         if record.session_id != '-':
-            record.session_id_hashed = hashlib.sha1(record.session_id).hexdigest()
+            record.session_id_hashed = hashlib.sha1(record.session_id).hexdigest()[:7]
         else:
             record.session_id_hashed = '-'
         # Headers
