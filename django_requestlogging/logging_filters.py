@@ -91,8 +91,11 @@ class RequestFilter(object):
         user = getattr(request, 'user', None)
         if user and not user.is_anonymous():
             record.username = user.username
+            if user.organization and user.organization.id:
+                record.org_id = user.organization.id
         else:
             record.username = '-'
+            record.org_id = '-'
         # Cookies
         COOKIES = getattr(request, 'COOKIES', {})
         record.uuid = COOKIES.get('uuid', '-')
